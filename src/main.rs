@@ -3,20 +3,34 @@ fn main() {
 }
 
 struct Coordinate {
-    x: u32,
-    y: u32
+    x: u16,
+    y: u16
+}
+
+impl Coordinate {
+    fn new(x: u16, y: u16) -> Self {
+        Self { x, y }
+    }
 }
 
 struct Quad {
-    x1: Coordinate,
-    x2: Coordinate,
-    y1: Coordinate,
-    y2: Coordinate
+    x: Coordinate,
+    y: Coordinate,
+    z: Coordinate,
+    a: Coordinate
 }
 
-struct Cube {
+impl Quad {
+    fn new(x: Coordinate, y: Coordinate, z: Coordinate, a: Coordinate) -> Self {
+        Self { x, y, z, a }
+    }
+
+    fn rect(start: Coordinate, width: u16, height: u16) -> Self {
+        Self { x: Coordinate::new(start.x, start.y), y: Coordinate::new(start.x + height, start.y), z: Coordinate::new(start.x, start.y + width), a: Coordinate::new(&start.x + height, start.y + width)}
+    }
+}
+
+struct Square {
     start: Coordinate,
-    length: u32,
-    width: u32
+    length: u16
 }
-
