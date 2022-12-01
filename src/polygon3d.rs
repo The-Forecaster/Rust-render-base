@@ -1,33 +1,46 @@
-use std::sync::Arc;
+use beryllium::{GlWindow, SwapInterval};
 
 pub struct Polygon3D {
-    pub surfaces: Vec<Surface3D>
+    pub surfaces: Vec<Surface>
 }
 
-impl Polygon3D {
-    pub fn new(surfaces: Vec<Surface3D>) -> Self {
-        Self { surfaces }
+pub struct World {
+    pub(crate) objects: Vec<Polygon3D>,
+    pub(crate) window: GlWindow
+}
+
+impl World {
+    pub fn add(&mut self, object: Polygon3D) {
+        self.objects.push(object)
     }
 
-    pub fn draw(self) {
-        for surface in self.surfaces {
-            surface.draw()
+    pub fn render(&self) {
+        for object in &self.objects {
+            object.draw(&self)
         }
     }
 }
 
-pub struct Surface3D {
+impl Polygon3D {
+    pub fn new(surfaces: Vec<Surface>) -> Self {
+        Self { surfaces }
+    }
+
+    pub fn draw(&self, world: &World) {
+        for surface in &self.surfaces {
+            surface.draw(&world)
+        }
+    }
+}
+
+pub struct Surface {
     vertices: Vec<(u16, u16, u16)>
 }
 
-impl Surface3D {
+impl Surface {
     pub fn new(vertices: Vec<(u16, u16, u16)>) -> Self {
         Self { vertices }
     }
 
-    pub fn draw(self) {
-        for vertex in self.vertices {
-            Arc::new(vertex);
-        }
-    }
+    pub fn draw(&self, _world: &World) {}
 }
