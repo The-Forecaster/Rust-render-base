@@ -1,4 +1,4 @@
-use beryllium::{InitFlags, SDL, GlProfile, SdlGlAttr, WindowPosition, WindowFlags, Event};
+use beryllium::{InitFlags, SDL, GlProfile, SdlGlAttr, WindowPosition, WindowFlags, Event, GlWindow};
 use polygon3d::{Polygon3D, Surface, World};
 
 mod polygon3d;
@@ -22,44 +22,44 @@ fn main() -> Result<(), String> {
 
     
     // Setup stuff for the render system
-    let mut world = World { objects: vec![], window: win };
+    let mut world = World { objects: vec![], window: win, camera: (0, 0, 0) };
 
     let cube = Polygon3D::new(
-vec![
+        vec![
             Surface::new(vec![
-                (0, 0, 0),
-                (100, 0, 0),
-                (0, 100, 0),
-                (100, 100, 0)
+                (50, 50, 50),
+                (100, 50,50),
+                (50, 100,50),
+                (100, 100,50)
             ]),
             Surface::new(vec![
-                (0, 0, 0),
-                (100, 0, 0),
-                (0, 0, 100),
-                (100, 0, 100)
+                (50,50,50),
+                (100,50,50),
+                (50,50, 100),
+                (100,50, 100)
             ]),
             Surface::new(vec![
-                (0, 0, 0),
-                (0, 100, 0),
-                (0, 0, 100),
-                (0, 100, 100)
+                (50,50,50),
+                (50, 100,50),
+                (50,50, 100),
+                (50, 100, 100)
             ]),
             Surface::new(vec![
-                (100, 0, 0),
-                (100, 100, 0),
-                (100, 0, 100),
+                (100,50,50),
+                (100, 100,50),
+                (100,50, 100),
                 (100, 100, 100)
             ]),
             Surface::new(vec![
-                (0, 100, 0),
-                (100, 100, 0),
-                (0, 100, 100),
+                (50, 100,50),
+                (100, 100,50),
+                (50, 100, 100),
                 (100, 100, 100)
             ]),
             Surface::new(vec![
-                (0, 0, 100),
-                (100, 0, 100),
-                (0, 100, 100),
+                (50,50, 100),
+                (100,50, 100),
+                (50, 100, 100),
                 (100, 100, 100)
             ])
         ]
@@ -89,5 +89,9 @@ struct Polygon {
 }
 
 impl Polygon {
-    fn draw(self) {}
+    fn draw(self, window: GlWindow) {}
+}
+
+fn build_polygons(world: World) -> Vec<Polygon> {
+    vec![]
 }

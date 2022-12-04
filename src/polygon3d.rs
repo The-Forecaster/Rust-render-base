@@ -1,4 +1,4 @@
-use beryllium::{GlWindow, SwapInterval};
+use beryllium::GlWindow;
 
 pub struct Polygon3D {
     pub surfaces: Vec<Surface>
@@ -6,7 +6,8 @@ pub struct Polygon3D {
 
 pub struct World {
     pub(crate) objects: Vec<Polygon3D>,
-    pub(crate) window: GlWindow
+    pub(crate) window: GlWindow,
+    pub(crate) camera: (u16, u16, u16)
 }
 
 impl World {
@@ -28,7 +29,7 @@ impl Polygon3D {
 
     pub fn draw(&self, world: &World) {
         for surface in &self.surfaces {
-            surface.draw(&world)
+            surface.draw(world)
         }
     }
 }
